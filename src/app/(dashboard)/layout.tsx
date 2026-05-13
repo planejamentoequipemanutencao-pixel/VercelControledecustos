@@ -1,6 +1,5 @@
 import { Sidebar } from '@/components/layout/Sidebar'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 
 async function getAtrasadasCount(): Promise<number> {
   try {
@@ -18,10 +17,6 @@ async function getAtrasadasCount(): Promise<number> {
 }
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createServerSupabaseClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
-
   const atrasadasCount = await getAtrasadasCount()
 
   return (
